@@ -54,6 +54,17 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
+
+// Admin: Get all users
+app.get('/api/users', async (req, res) => {
+  try {
+    const users = await User.find({}, '-password'); // Exclude password
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+});
+
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`API server running on http://0.0.0.0:${PORT}`);
 });
